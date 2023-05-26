@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "clean",
+      "command": "npx rimraf './dist/'",
+      "group": {
+        "kind": "build"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "copy: views",
+      "command": "npx cpx './src/views/**/*' './dist/views' --clean",
+      "group": {
+        "kind": "build"
+      },
+      "dependsOn": [
+      ]
+    },
+    {
+      "type": "shell",
+      "label": "copy: static",
+      "command": "npx cpx './src/public/**/*' './dist/public' --clean",
+      "group": {
+        "kind": "build"
+      },
+      "dependsOn": [
+      ]
+    },
+    {
+      "type": "npm",
+      "label": "build",
+      "script": "build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "detail": "tsc --build",
+      "dependsOn": [
+        "copy: views",
+        "copy: static"
+      ]
+    }
+  ]
+}

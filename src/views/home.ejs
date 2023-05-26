@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%- include("./_shared/stylesheets.ejs")  %>
+  <link href="/public/stylesheets/home.css" rel="stylesheet">
+  <title>Internal ChatGPT</title>
+</head>
+<body>
+  <div class="d-flex h-100">
+    <nav class="p-3 bg-light" style="width: 280px;">
+      <span class="fs-1"><i class="fa-solid fa-robot"></i> ChatBot</span>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="#">New</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="#">xxxxxx</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" href="#">xxxxxx</a>
+        </li>
+      </ul>
+    </nav>
+    <main class="flex-grow-1 bg-highlight">
+      <div class="d-flex flex-column h-100">
+        <div class="flex-grow-1 p-3 chat-log" id="chat-log">
+          <div class="chat-row">
+            <div class="chat-item-user-icon">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="chat-item-user-balloon">
+              <p>こんにちは。これは例です。</p>
+            </div>
+          </div>
+          <div class="chat-row">
+            <div class="chat-item-bot-icon">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="chat-item-bot-balloon">
+              <p>こんにちは。これは例です。</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-shrink-0 p-3 chat-input bg-white">
+          <div class="row align-self-end">
+            <form method="POST" action="#" id="frmSendMessage">
+              <!-- <div class="col-auto mb-3">
+                <textarea name="message" id="message" cols="30" rows="3" class="form-control"></textarea>
+              </div>
+              <div class="col-auto mb-3">
+                <input type="submit" value="送信" class="btn btn-primary " />
+              </div>
+              <div class="input-group mb-3">
+                <textarea class="form-control" cols="30" rows="3"></textarea>
+                <button class="btn btn-outline-secondary" type="button" id="btnSend"><i class="fa-regular fa-paper-plane"></i></button>
+              </div>
+              <div class="mb-3 row">
+                <div class="col-sm-11">
+                  <textarea class="form-control" cols="30" rows="3"></textarea>
+                </div>
+                <div class="col-sm-1">
+                  <button class="btn btn-outline-secondary" type="button" id="btnSend"><i class="fa-regular fa-paper-plane"></i></button>
+                </div>
+              </div> -->
+              <div class="d-flex">
+                <div class="flex-fill mr-3">
+                  <textarea class="form-control" rows="3" id="txtMessage" name="txtMessage"></textarea>
+                </div>
+                <div class="align-self-end ms-3">
+                  <button class="btn btn-outline-primary" type="submit" id="btnSend">送信 <i class="fa-regular fa-paper-plane"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+<%- include("./_shared/scripts.ejs")  %>
+  <script src="/public/javascripts/home.js"></script>
+</body>
+</html>

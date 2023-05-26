@@ -1,0 +1,12 @@
+POST http://localhost:3000/api/chat
+Content-Type: application/json
+
+{"message": "Hello World"}
+
+
+###
+POST https://at-openai-southcentralus-oai.openai.azure.com/openai/deployments/gpt-35-turbo/chat/completions?api-version=2023-03-15-preview
+Content-Type: application/json
+api-key: 6b0c6ca09e304176b1bb388d352eaba7
+
+{"messages": [{"role": "user", "content": "onece upon a time,"}]}
