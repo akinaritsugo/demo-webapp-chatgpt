@@ -9,16 +9,18 @@ var createUserMessageBox = (message) => {
   // Set style
   $root.addClass("chat-row");
   $icondiv.addClass("chat-item-user-icon");
-  $iconimg.addClass("fa-solid fa-user");
+  $iconimg.addClass("fas fa-user");
   $msgdiv.addClass("chat-item-user-balloon");
 
   // Construct DOM structure
   $icondiv.append($iconimg);
-  $msgp.text(message);
+  message && $msgp.text(message);
   $msgdiv.append($msgp);
   $root.append($icondiv);
   $root.append($msgdiv);
   $("#chat-log").append($root);
+
+  return $msgp;
 };
 
 // Craete Assistant Message Box
@@ -32,12 +34,20 @@ var createAssistantMessageBox = (message) => {
   // Set style
   $root.addClass("chat-row");
   $icondiv.addClass("chat-item-bot-icon");
-  $iconimg.addClass("fa-solid fa-robot");
+  $iconimg.addClass("fas fa-robot");
   $msgdiv.addClass("chat-item-bot-balloon");
 
   // Construct DOM structure
   $icondiv.append($iconimg);
-  message && $msgp.text(message);
+  // message && $msgp.text(message);
+  if(message) {
+    $msgp.text(message);
+  } else {
+    // Create spinner icon
+    // const $spinner = $(document.createElement("i"));
+    // $spinner.addClass("fas fa-spinner fa-spin");
+    // $msgp.append($spinner);
+  }
   $msgdiv.append($msgp);
   $root.append($icondiv);
   $root.append($msgdiv);
@@ -70,7 +80,7 @@ var frmSendMessage_onsubmit = (event) => {
   const message = $txtMessage.val();
 
   // Create message box
-  createUserMessageBox(message);
+  const $usrMsg = createUserMessageBox(message);
   const $astMsg = createAssistantMessageBox();
   
   // Request to the server
@@ -91,7 +101,7 @@ var frmSendMessage_onsubmit = (event) => {
   // Scroll to bottom chat log area
   $("#chat-log").scrollTop($("#chat-log")[0].scrollHeight);
 
-  // Clear the text box
+  // Clear the input text box
   $txtMessage.val("");
   $txtMessage.focus();
 
@@ -104,72 +114,9 @@ var frmSendMessage_onsubmit = (event) => {
 var btnSend_onclick = (event) => {
 };
 
-/* -------------------------- */
-var btntest_onclick = (event) => {
-  // const sse = new EventSource("/api/chat/sse2");
-  // sse.addEventListener("open", (event) => {
-  //   console.log("Connection opened!");
-  // });
-  // sse.addEventListener("message", (event) => {
-  //   const data = JSON.parse(event.data);
-  //   console.log(data);
-  // });
-  $.ajax({
-    url: "/api/chat/stream",
-    method: "POST",
-    data: { message: "Hello" },
-    success: (data, textStatus, jqXHR) => {
-      const arr = data.split("\n\n");
-      for (const item of arr) {
-        if (item.startsWith("data:")) {
-          const text = item.slice("data: ".length);
-          if (text.toLowerCase().startsWith("[DONE]")) {
-            break;
-          }
-          const data = JSON.parse(text);
-          const message = data.choices[0]?.delta?.content;
-          message && setTimeout(() => {
-            createAssistantMessageBox(message);
-          }, 100);
-        }
-      }
-    },
-    error: (jqXHR, textStatus, errorThrown) => {
-      alert("Error sending message!");
-    }
-  });
-};
-var displayMessage = (messages, $target) => {
-  const message = messages.shift();
-  if (message) {
-    setTimeout(() => {
-      $target.append(document.createTextNode(message.toString() + " "));
-      displayMessage(messages, $target);
-    }, 30);
-  }
-};
-
-var btntest_onclick2 = (event) => {
-  const $test = $("#test");
-  var arr = [10, 20, 30, 40];
-  displayMessage(arr, $test);
-  // for (const item of arr) {
-  //   // var callback = (list) => {
-  //   //   const item = list.shift();
-  //   //   setTimeout(() => {
-  //   //     $test.append(document.createTextNode(item.toString() + " "));
-  //   //     callback(list);
-  //   //   }, 100);
-  //   // };
-  //   // callback(arr);
-  // }
-};
-/* -------------------------- */
-
 var document_onready = (event) => {
   $("#frmSendMessage").on("submit", frmSendMessage_onsubmit);
   $("#btnSend").on("click", btnSend_onclick);
-  $("#btntest").on("click", btntest_onclick2);
 };
 
 $(document).ready(document_onready);

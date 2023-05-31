@@ -98,8 +98,3 @@ Chat.post("/stream", async (req, res, next) => {
     next(err);
   }
 });
-
-
-Chat.post("/stream2", async (req, res, next) => {
-
-});

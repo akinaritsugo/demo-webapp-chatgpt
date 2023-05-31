@@ -10,12 +10,12 @@
 </head>
 <body>
   <div class="d-flex h-100">
-    <nav class="p-3 bg-light" style="width: 280px;">
-      <span class="fs-1"><i class="fa-solid fa-robot"></i> ChatBot</span>
+    <nav class="p-3 bg-light" style="min-width: 280px;">
+      <span class="fs-1"><i class="fas fa-robot"></i> ChatBot</span>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <a class="nav-link link-dark" href="#">New</a>
+          <a class="btn btn-outline-primary w-100" href="#">New</a>
         </li>
         <li class="nav-item">
           <a class="nav-link link-dark" href="#">xxxxxx</a>
@@ -24,16 +24,14 @@
           <a class="nav-link link-dark" href="#">xxxxxx</a>
         </li>
       </ul>
-      <hr>
-      <input type="button" value="test" id="btntest">
-      <pre id="test"></pre>
     </nav>
     <main class="flex-grow-1 bg-highlight">
       <div class="d-flex flex-column h-100">
         <div class="flex-grow-1 p-3 chat-log" id="chat-log">
+        <!--
           <div class="chat-row">
             <div class="chat-item-user-icon">
-              <i class="fa-solid fa-user"></i>
+              <i class="fas fa-user"></i>
             </div>
             <div class="chat-item-user-balloon">
               <p>こんにちは。これは例です。</p>
@@ -41,12 +39,13 @@
           </div>
           <div class="chat-row">
             <div class="chat-item-bot-icon">
-              <i class="fa-solid fa-robot"></i>
+              <i class="fas fa-robot"></i>
             </div>
             <div class="chat-item-bot-balloon">
-              <p>こんにちは。これは例です。</p>
+              <p><i class="fas fa-solid fa-spinner fa-pulse"></i></p>
             </div>
           </div>
+        -->
         </div>
         <div class="flex-shrink-0 p-3 chat-input bg-white">
           <div class="row align-self-end">
@@ -74,7 +73,7 @@
                   <textarea class="form-control" rows="3" id="txtMessage" name="txtMessage"></textarea>
                 </div>
                 <div class="align-self-end ms-3">
-                  <button class="btn btn-outline-primary" type="submit" id="btnSend">送信 <i class="fa-regular fa-paper-plane"></i></button>
+                  <button class="btn btn-outline-primary" type="submit" id="btnSend">送信 <i class="fas fa-paper-plane"></i></button>
                 </div>
               </div>
             </form>
