@@ -9,6 +9,20 @@ const OPENAI_API_VERSION = process.env.OPENAI_API_VERSION;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const OPENAI_COMPLETION_ENDPOINT = `https://${OPENAI_RESOURCE}.openai.azure.com/openai/deployments/${OPENAI_DEPLOYMENT}/chat/completions?api-version=${OPENAI_API_VERSION}`;
 
+const createRequestData = (message: string, stream = false) => {
+  return {
+    messages: [
+      {
+        role: "user",
+        content: message
+      }
+    ],
+    stream
+  };
+};
+
+
+
 // Get chat logs by specified user id.
 Chat.get("/", (req, res, next) => {
   res.json("OK");
@@ -16,15 +30,8 @@ Chat.get("/", (req, res, next) => {
 
 // Request new chat compeletion.
 Chat.post("/", async (req, res, next) => {
-  const message = req.body.message;
-  const data = {
-    messages: [
-      {
-        role: "user",
-        content: message
-      }
-    ]
-  };
+  const data = createRequestData(req.body.message);
+
   try {
     const response = await axios({
       method: "post",
@@ -43,18 +50,9 @@ Chat.post("/", async (req, res, next) => {
 });
 
 // Request new chat compeletion with stream.
-Chat.post("/stream", async (req, res, next) => {
+Chat.use("/stream", async (req, res, next) => {
   // Create request data
-  const message = req.body.message;
-  const data = {
-    messages: [
-      {
-        role: "user",
-        content: message
-      }
-    ],
-    stream: true
-  };
+  const data = createRequestData(req.body.message, true);
 
   try {
     // Request OpenAI API
@@ -97,4 +95,38 @@ Chat.post("/stream", async (req, res, next) => {
     console.log(err.message);
     next(err);
   }
+});
+
+const recursive = (count: number, req: any, res: any, next: any) => {
+  setTimeout(() => {
+    const data = {
+      messages: `Hello, world! - ${(new Date()).toLocaleString()}`
+    };
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+
+    const nextCount = count - 1;
+    if (nextCount > 0) {
+      recursive(nextCount, req, res, next);
+    } else {
+      res.write("data: done\n\n");
+      res.end();
+      next();
+    }
+  }, 1000);
+};
+
+Chat.get("/time", (req, res, next) => {
+  // Set response header
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive"
+  });
+
+  // Close connection when client disconnects
+  req.socket.addListener("close", () => {
+    res.end();
+  });
+
+  recursive(10, req, res, next);
 });

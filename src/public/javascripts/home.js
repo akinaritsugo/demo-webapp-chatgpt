@@ -40,7 +40,7 @@ var createAssistantMessageBox = (message) => {
   // Construct DOM structure
   $icondiv.append($iconimg);
   // message && $msgp.text(message);
-  if(message) {
+  if (message) {
     $msgp.text(message);
   } else {
     // Create spinner icon
@@ -62,7 +62,7 @@ var displayAssistantMessage = (events, $target) => {
 
   // Retrieve message from event
   const text = event.slice("data: ".length);
-  if(text.toLowerCase().startsWith("[done]")) {
+  if (text.toLowerCase().startsWith("[done]")) {
     return;
   }
   const data = JSON.parse(text);
@@ -82,7 +82,7 @@ var frmSendMessage_onsubmit = (event) => {
   // Create message box
   const $usrMsg = createUserMessageBox(message);
   const $astMsg = createAssistantMessageBox();
-  
+
   // Request to the server
   $.ajax({
     url: "/api/chat/stream",
@@ -111,12 +111,13 @@ var frmSendMessage_onsubmit = (event) => {
   return false;
 };
 
-var btnSend_onclick = (event) => {
+var btnNew_onclick = (event) => {
+  $("#chat-log").empty();
 };
 
 var document_onready = (event) => {
   $("#frmSendMessage").on("submit", frmSendMessage_onsubmit);
-  $("#btnSend").on("click", btnSend_onclick);
+  $("#btnNew").on("click", btnNew_onclick);
 };
 
 $(document).ready(document_onready);
