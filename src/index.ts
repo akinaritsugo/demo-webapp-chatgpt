@@ -1,6 +1,7 @@
 import express from "express";
 import { Home } from "./routes/home";
 import { Chat } from "./routes/api/chat";
+import { ReAct } from "./routes/api/react";
 import path from "path";
 
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.use("/test", (req, res, next)=>{
   res.render("test");
 });
 app.use("/api/chat", Chat);
+app.use("/api/react", ReAct);
 // app.use("/api", (() => {
 //   const router = express.Router();
 //   router.use("/chat", Chat);

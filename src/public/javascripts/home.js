@@ -111,12 +111,49 @@ var frmSendMessage_onsubmit = (event) => {
   return false;
 };
 
+var frmSendMessage_onsubmit2 = (event) => {
+  const $txtMessage = $("#txtMessage");
+  const chatId = $("#txtChatId").val();
+  const message = $txtMessage.val();
+
+  // Create message box
+  const $usrMsg = createUserMessageBox(message);
+  const $astMsg = createAssistantMessageBox();
+
+  // Request to the server
+  $.ajax({
+    url: "/api/react/bing",
+    method: "POST",
+    data: { chatId, message },
+    success: (data, textStatus, jqXHR) => {
+      $("#txtChatId").val(data.chatId);
+      $astMsg.append(data.message);
+    },
+    error: (jqXHR, textStatus, errorThrown) => {
+      alert("Error sending message!");
+    }
+  });
+
+  // Scroll to bottom chat log area
+  $("#chat-log").scrollTop($("#chat-log")[0].scrollHeight);
+
+  // Clear the input text box
+  $txtMessage.val("");
+  $txtMessage.focus();
+
+  // Prevent the form from submitting
+  event.preventDefault();
+  event.stopPropagation();
+  return false;
+};
+
 var btnNew_onclick = (event) => {
   $("#chat-log").empty();
+  $("#txtChatId").val("");
 };
 
 var document_onready = (event) => {
-  $("#frmSendMessage").on("submit", frmSendMessage_onsubmit);
+  $("#frmSendMessage").on("submit", frmSendMessage_onsubmit2);
   $("#btnNew").on("click", btnNew_onclick);
 };
 

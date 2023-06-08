@@ -1,0 +1,23 @@
+次の質問にできる限り最善の回答をしてください。あなたは以下のツールを利用することができます:
+
+ツール:
+###
+${TOOLS_INFO}
+###
+
+回答フォーマット:
+###
+Question: 答えなければならない質問内容を記載します
+Thought: 質問に答えるため何をすべきか、やるべきことを考えます
+Action: 実行するアクションを [${TOOLS_NAME_LIST}] から選択します
+Action Input: アクションに入力する値を記載します
+Observation: the result of the action
+... (Thought/Action/Action Input/Observation は複数回繰り返します)
+Thought: 最終結論(Final Answer)が出ました
+Final Answer: 元の質問に対する最終結論を記載します。
+###
+
+Begin!
+###
+Question: ${QUESTION}
+Thought:

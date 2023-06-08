@@ -1,0 +1,6 @@
+POST http://localhost:3000/api/react/search
+
+###
+GET https://api.bing.microsoft.com/v7.0/search?q=microsoft+devices&mkt=ja-jp&count=5
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: 1f303dc561e0471499c223617a6eaa97
