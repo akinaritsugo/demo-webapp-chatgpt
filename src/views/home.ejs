@@ -11,26 +11,12 @@
 <body>
   <div class="d-flex h-100">
     <nav class="p-3 bg-light" style="min-width: 280px;">
-      <span class="fs-1"><i class="fas fa-robot"></i> ChatBot</span>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a class="btn btn-outline-primary w-100" href="#" id="btnNew">New</a>
-        </li>
-<!--
-        <li class="nav-item">
-          <a class="nav-link link-dark" href="#">xxxxxx</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link link-dark" href="#">xxxxxx</a>
-        </li>
--->
-      </ul>
+<%- include("./_shared/navigations.ejs")  %>
     </nav>
     <main class="flex-grow-1 bg-highlight">
+<!--
       <div class="d-flex flex-column h-100">
         <div class="flex-grow-1 p-3 chat-log" id="chat-log">
-        <!--
           <div class="chat-row">
             <div class="chat-item-user-icon">
               <i class="fas fa-user"></i>
@@ -47,12 +33,11 @@
               <p><i class="fas fa-solid fa-spinner fa-pulse"></i></p>
             </div>
           </div>
-        -->
         </div>
         <div class="flex-shrink-0 p-3 chat-input bg-white">
           <div class="row align-self-end">
             <form method="POST" action="#" id="frmSendMessage">
-              <!-- <div class="col-auto mb-3">
+              <div class="col-auto mb-3">
                 <textarea name="message" id="message" cols="30" rows="3" class="form-control"></textarea>
               </div>
               <div class="col-auto mb-3">
@@ -69,7 +54,7 @@
                 <div class="col-sm-1">
                   <button class="btn btn-outline-secondary" type="button" id="btnSend"><i class="fa-regular fa-paper-plane"></i></button>
                 </div>
-              </div> -->
+              </div>
               <div class="d-flex">
                 <input type="hidden" id="txtChatId" name="txtChatId" value="">
                 <div class="flex-fill mr-3">
@@ -83,6 +68,7 @@
           </div>
         </div>
       </div>
+-->
     </main>
   </div>
 <%- include("./_shared/scripts.ejs")  %>

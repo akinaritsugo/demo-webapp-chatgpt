@@ -8,9 +8,9 @@ import { Calculator } from "langchain/tools/calculator";
 import { v4 as uuid } from "uuid";
 import axios, { Axios, AxiosError } from "axios";
 
-export const ReAct = Router();
+export const Bing = Router();
 
-ReAct.post("/", async (req, res, next) => {
+Bing.post("/", async (req, res, next) => {
   const chatId = req.body.chatId || uuid();
   const message = req.body.message;
 
@@ -34,7 +34,7 @@ ReAct.post("/", async (req, res, next) => {
 });
 
 
-ReAct.post("/bing", async (req, res, next) => {
+Bing.post("/bing", async (req, res, next) => {
   const chatId = req.body.chatId || uuid();
   const message = req.body.message;
 
@@ -102,7 +102,7 @@ ReAct.post("/bing", async (req, res, next) => {
 
 
 
-ReAct.post("/search", async (req, res, next) => {
+Bing.post("/search", async (req, res, next) => {
   const searchText = "coronavirus vaccine";
   const url = new URL("https://api.bing.microsoft.com/v7.0/search");
   url.searchParams.append("q", encodeURIComponent(searchText));

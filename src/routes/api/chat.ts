@@ -3,10 +3,10 @@ import EventSource from "eventsource";
 import axios, { Axios, AxiosError } from "axios";
 export const Chat = Router();
 
-const OPENAI_RESOURCE = process.env.OPENAI_RESOURCE;
-const OPENAI_DEPLOYMENT = process.env.OPENAI_DEPLOYMENT;
-const OPENAI_API_VERSION = process.env.OPENAI_API_VERSION;
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_RESOURCE = process.env.AZURE_OPENAI_API_INSTANCE_NAME;
+const OPENAI_DEPLOYMENT = process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME;
+const OPENAI_API_VERSION = process.env.AZURE_OPENAI_API_VERSION;
+const OPENAI_API_KEY = process.env.AZURE_OPENAI_API_KEY;
 const OPENAI_COMPLETION_ENDPOINT = `https://${OPENAI_RESOURCE}.openai.azure.com/openai/deployments/${OPENAI_DEPLOYMENT}/chat/completions?api-version=${OPENAI_API_VERSION}`;
 
 const createRequestData = (message: string, stream = false) => {

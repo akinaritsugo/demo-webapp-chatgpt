@@ -1,7 +1,9 @@
 import express from "express";
 import { Home } from "./routes/home";
-import { Chat } from "./routes/api/chat";
-import { ReAct } from "./routes/api/react";
+import { Chat as ViewChat } from "./routes/chat";
+import { Bing as ViewBing } from "./routes/bing";
+import { Chat as ApiChat } from "./routes/api/chat";
+import { Bing as ApiBing } from "./routes/api/bing";
 import path from "path";
 
 const PORT = process.env.PORT || 3000;
@@ -20,17 +22,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static(path.join(__dirname, "/public")));
 
 // Set up routes
-app.use("/", Home);
-app.use("/test", (req, res, next)=>{
-  res.render("test");
+app.use("/", (() => {
+  const router = express.Router();
+  router.use("/", Home);
+  router.use("/chat", ViewChat);
+  router.use("/bing", ViewBing);
+  return router;
+})());
+app.use("/api", (() => {
+  const router = express.Router();
+  router.use("/chat", ApiChat);
+  router.use("/bing", ApiBing);
+  return router;
+})());
+app.use("/healthz", (req, res, next)=>{
+  res.json({status: "ok"});
 });
-app.use("/api/chat", Chat);
-app.use("/api/react", ReAct);
-// app.use("/api", (() => {
-//   const router = express.Router();
-//   router.use("/chat", Chat);
-//   return router;
-// })());
 
 // Start server
 app.listen(PORT, () => {
