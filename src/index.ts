@@ -35,8 +35,8 @@ app.use("/api", (() => {
   router.use("/bing", ApiBing);
   return router;
 })());
-app.use("/healthz", (req, res, next)=>{
-  res.json({status: "ok"});
+app.use("/healthz", (req, res, next)=> {
+  res.json({ status: "ok" });
 });
 
 // Start server
