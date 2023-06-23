@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import { Home } from "./routes/home";
 import { Chat as ViewChat } from "./routes/chat";
