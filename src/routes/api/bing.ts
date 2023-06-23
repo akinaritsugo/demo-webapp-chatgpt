@@ -30,30 +30,6 @@ Bing.post("/", async (req, res, next) => {
       temperature: 0.9,
       topP: 1
     });
-    const memory = new BufferMemory({
-      returnMessages: true,
-      // memoryKey: chatId
-    });
-    const chain = new ConversationChain({ llm, memory });
-    const reply = await chain.call({ input: message });
-    res.json({ chatId, message: reply.response });
-  } catch (err: Error | any) {
-    console.log(err.message);
-    next(err);
-  }
-});
-
-
-Bing.post("/bing", async (req, res, next) => {
-  const chatId = req.body.chatId || uuid();
-  const message = req.body.message;
-
-  try {
-    const llm = new OpenAI({
-      modelName: "gpt-3.5-turbo",
-      temperature: 0.9,
-      topP: 1
-    });
 
     const tools = [
       new BingSearch(),
@@ -77,7 +53,7 @@ Bing.post("/bing", async (req, res, next) => {
     const executor = new AgentExecutor({
       agent,
       tools,
-      verbose: true
+      // verbose: true
     });
 
     const reply = await executor.call({ input: message });

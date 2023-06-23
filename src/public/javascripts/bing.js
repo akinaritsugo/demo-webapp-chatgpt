@@ -86,7 +86,7 @@ var frmSendMessage_onsubmit = (event) => {
 
   // Request to the server
   $.ajax({
-    url: "/api/bing/bing",
+    url: "/api/bing",
     method: "POST",
     data: { chatId, message },
     success: (data, textStatus, jqXHR) => {
